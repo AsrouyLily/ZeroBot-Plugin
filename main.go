@@ -174,7 +174,7 @@ func init() {
 	// 直接写死 URL 时，请更改下面第二个参数
 	url = flag.String("u", "ws://127.0.0.1:6700", "Set Url of WSClient.")
 	// 默认昵称
-	adana = flag.String("n", "椛椛", "Set default nickname.")
+	adana = flag.String("n", "筱雅", "Set default nickname.")
 	prefix = flag.String("p", "/", "Set command prefix.")
 
 	flag.Parse()
@@ -224,11 +224,11 @@ func main() {
 	printBanner()
 	rand.Seed(time.Now().UnixNano()) // 全局 seed，其他插件无需再 seed
 	// 帮助
-	zero.OnFullMatchGroup([]string{"/help", ".help", "菜单"}, zero.OnlyToMe).SetBlock(true).
+	zero.OnFullMatchGroup([]string{"/help", ".help", "菜单", "帮助"}, zero.OnlyToMe).SetBlock(true).
 		Handle(func(ctx *zero.Ctx) {
 			ctx.SendChain(message.Text(banner, "\n可发送\"/服务列表\"查看 bot 功能"))
 		})
-	zero.OnFullMatch("查看zbp公告", zero.OnlyToMe, zero.AdminPermission).SetBlock(true).
+	zero.OnFullMatch("查看ZeroBot公告", zero.OnlyToMe, zero.AdminPermission).SetBlock(true).
 		Handle(func(ctx *zero.Ctx) {
 			ctx.SendChain(message.Text(getKanban()))
 		})
@@ -237,7 +237,7 @@ func main() {
 			NickName:      append([]string{*adana}, nicks...),
 			CommandPrefix: *prefix,
 			// SuperUsers 某些功能需要主人权限，可通过以下两种方式修改
-			// SuperUsers: []string{"12345678", "87654321"}, // 通过代码写死的方式添加主人账号
+			// SuperUsers: []string{"52335008", "520085912"}, // 通过代码写死的方式添加主人账号
 			SuperUsers: flag.Args(), // 通过命令行参数的方式添加主人账号
 			Driver:     []zero.Driver{driver.NewWebSocketClient(*url, *token)},
 		},
